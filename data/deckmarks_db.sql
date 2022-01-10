@@ -60,7 +60,7 @@ ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 CREATE TABLE public.deckmarks (
     id integer NOT NULL,
-    link character varying(20) NOT NULL,
+    link character varying(1000) NOT NULL,
     description character varying(1000),
     thumbnail character varying(1000)
 );
