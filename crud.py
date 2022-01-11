@@ -21,9 +21,15 @@ def get_all_groups():
     return model.Group.query.all()
 
 def add_deckmark_to_group(group_id, deckmark_id):
-    """Creates deckmark in database with group and deckmark object"""
+    """Creates association between group and deckmark"""
     new_item = model.groupItem(group_id=group_id, deckmark_id=deckmark_id)
     model.db.session.add(new_item)
+    model.db.session.commit()
+
+def add_tag_to_deckmark(deckmark_id, tag_id):
+    """Creates association between deckmark and tag"""
+    tag = model.Decktag(deckmark_id=deckmark_id, tag_id=tag_id)
+    model.db.session.add(tag)
     model.db.session.commit()
 
 if __name__ == "__main__":
