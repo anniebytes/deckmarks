@@ -16,7 +16,22 @@ def create_deckmark_records():
 
     model.db.session.add(deckmark)
     model.db.session.commit()
-    return link1
+
+def create_group_records():
+    group1 = {
+        "name": "Hogwarts 2022",
+        "description": "Hogwarts School of Magic Winter 2022",
+        "private": False
+    }
+
+    group = model.Group(
+                        name=group1["name"], 
+                        description=group1["description"], 
+                        private=group1["private"])
+
+    model.db.session.add(group)
+    model.db.session.commit()
+
 
 def create_category_records():
     category_names = ["Technology", "Business", "Art"]
@@ -46,6 +61,7 @@ def create_user_records():
     model.db.session.add(user1)
     model.db.session.commit()
 
+
 if __name__ == "__main__":
     import model
     from server import app
@@ -60,3 +76,4 @@ if __name__ == "__main__":
     create_category_records()
     create_deckmark_records()
     create_user_records()
+    create_group_records()
