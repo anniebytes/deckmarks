@@ -2,13 +2,18 @@
 
 import model
 
-def create_deckmark(link, description, thumbnail):
+def create_user_record(fname, lname, email, password):
+    user = model.User(fname=fname, lname=lname, email=email, password=password)
+    model.db.session.add(user)
+    model.db.session.commit()
+
+def create_deckmark_record(link, description, thumbnail):
     deckmark = model.Deckmark(link=link, description=description, thumbnail=thumbnail)
     model.db.session.add(deckmark)
     model.db.session.commit()
 
-def create_group(name, description):
-    group = model.Group(name=name, description=description)
+def create_group_record(name, description,private=False):
+    group = model.Group(name=name, description=description,private=private)
     model.db.session.add(group)
     model.db.session.commit()
 
