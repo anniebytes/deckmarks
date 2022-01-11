@@ -61,6 +61,11 @@ def create_user_records():
     model.db.session.add(user1)
     model.db.session.commit()
 
+def create_tag_records():
+    tag= model.Tag(name="tech")
+    model.db.session.add(tag)
+    model.db.session.commit()
+
 
 if __name__ == "__main__":
     import model
@@ -77,3 +82,4 @@ if __name__ == "__main__":
     create_deckmark_records()
     create_user_records()
     create_group_records()
+    create_tag_records()
