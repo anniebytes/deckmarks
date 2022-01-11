@@ -1,5 +1,6 @@
 """ ORM Model class definitions for deckmarks psql db"""
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql.schema import ForeignKey
 
 db = SQLAlchemy()
 
@@ -19,6 +20,8 @@ class Deckmark(db.Model):
     description = db.Column(db.Text, nullable=True)
     thumbnail = db.Column(db.String(1000), nullable=True)
 
+    group = db.relationship("Group", secondary="group_items", backref="deckmarks")
+
 class User(db.Model):
 
     __tablename__ = "users"
@@ -28,6 +31,23 @@ class User(db.Model):
     lname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(1000), nullable=False)
     password = db.Column(db.String(100), nullable=False)
+
+class Group(db.Model):
+
+    __tablename__ = "groups"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    private = db.Column(db.Boolean)
+
+class groupItem(db.Model):
+
+    __tablename__ = "group_items"
+
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
+    group_id = db.Column(db.Integer, ForeignKey('groups.id'))
+    deckmark_id = db.Column(db.Integer, ForeignKey('deckmarks.id'))
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
@@ -41,7 +61,5 @@ def connect_to_db(app):
 
 
 if __name__ == "__main__":
-    from flask import Flask
-
-    app = Flask(__name__)
+    from server import app
     connect_to_db(app)
