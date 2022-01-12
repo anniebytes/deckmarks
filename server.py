@@ -72,10 +72,18 @@ def add_group_form():
 
 @app.route('/create_group', methods=['POST'])
 def create_group():
+    user_id = session['user_id']
+    if not user_id:
+        flash('Must be a logged in user to create a group.')
+        return redirect('/add_group')
     name = request.form.get('name')
     description = request.form.get('description')
     private = request.form.get('private')
-    if crud.create_group_record(name, description, private):
+    if crud.create_group_record(
+                                user_id=user_id,
+                                name=name,
+                                description=description,
+                                private=private):
             flash('new record created', 'message')
     else:
         flash('record creation failed', 'error')
@@ -91,10 +99,18 @@ def add_deckmark_form():
 
 @app.route('/create_deckmark', methods=['POST'])
 def create_deckmark():
+    user_id = session['user_id']
+    if not user_id:
+        flash('Must be a logged in user to create a group.')
+        return redirect('/add_deckmark')
     link = request.form.get('link')
     description = request.form.get('description')
     thumbnail = request.form.get('thumbnail')
-    if crud.create_deckmark_record(link, description, thumbnail):
+    if crud.create_deckmark_record(
+                                user_id=user_id,
+                                link=link,
+                                description=description,
+                                thumbnail=thumbnail):
             flash('new record created', 'message')
     else:
         flash('record creation failed', 'error')

@@ -14,14 +14,14 @@ def check_user_login(email, password):
         return user
     return False
 
-def create_deckmark_record(link, description, thumbnail):
-    deckmark = model.Deckmark(link=link, description=description, thumbnail=thumbnail)
+def create_deckmark_record(user_id, link, description, thumbnail):
+    deckmark = model.Deckmark(user_id=user_id, link=link, description=description, thumbnail=thumbnail)
     model.db.session.add(deckmark)
     model.db.session.commit()
     return True
 
-def create_group_record(name, description,private=False):
-    group = model.Group(name=name, description=description,private=private)
+def create_group_record(user_id, name, description,private=False):
+    group = model.Group(user_id=user_id, name=name, description=description,private=private)
     model.db.session.add(group)
     model.db.session.commit()
     return True

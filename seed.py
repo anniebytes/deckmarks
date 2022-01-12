@@ -3,6 +3,7 @@ import model
 
 def create_deckmark_records():
     link1 = {
+        "user_id": 1,
         "link": "https://www.slideshare.net/e2m/flask-sqlalchemy",
         "description": "Python CodeLabs - Intro to Flask SQLAlchemy \n \
                         http://eueung.github.io/python/flask-sqlalchemy",
@@ -10,6 +11,7 @@ def create_deckmark_records():
     }
 
     deckmark = model.Deckmark(
+                        user_id = link1["user_id"],
                         link=link1["link"], 
                         description=link1["description"], 
                         thumbnail=link1["thumbnail"])
@@ -19,12 +21,14 @@ def create_deckmark_records():
 
 def create_group_records():
     group1 = {
+        "user_id": 1,
         "name": "Hogwarts 2022",
         "description": "Hogwarts School of Magic Winter 2022",
         "private": False
     }
 
     group = model.Group(
+                        user_id = group1["user_id"],
                         name=group1["name"], 
                         description=group1["description"], 
                         private=group1["private"])

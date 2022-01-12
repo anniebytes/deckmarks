@@ -20,6 +20,10 @@ class Deckmark(db.Model):
     description = db.Column(db.Text, nullable=True)
     thumbnail = db.Column(db.String(1000), nullable=True)
 
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+
+    user = db.relationship("User", back_populates="deckmarks")
+
     group = db.relationship("Group", secondary="group_items", backref="deckmarks")
     tags = db.relationship("Tag", secondary="decktags", backref="deckmarks")
 
@@ -33,6 +37,10 @@ class User(db.Model):
     email = db.Column(db.String(1000), nullable=False)
     password = db.Column(db.String(100), nullable=False)
 
+    deckmarks = db.relationship("Deckmark", back_populates="user")
+    groups = db.relationship("Group", back_populates="user")
+    
+
 class Group(db.Model):
 
     __tablename__ = "groups"
@@ -41,6 +49,10 @@ class Group(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     private = db.Column(db.Boolean)
+
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+
+    user = db.relationship("User", back_populates="groups")
 
     # backref attributes:
     # .deckmarks - display deckmarks under a group
