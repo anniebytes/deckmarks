@@ -24,7 +24,7 @@ class Deckmark(db.Model):
 
     user = db.relationship("User", back_populates="deckmarks")
 
-    group = db.relationship("Group", secondary="group_items", backref="deckmarks")
+    groups = db.relationship("Group", secondary="group_items", backref="deckmarks")
     tags = db.relationship("Tag", secondary="decktags", backref="deckmarks")
 
 class User(db.Model):
