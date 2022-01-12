@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/create_deckmark" method="POST">
+    Link: 
+    <input type="text" name="link"> 
+    
+    Description:
+    <input type="textbox" name="description"> 
+    
+    Thumbnail:
+    <input type="text" name="thumbnail">
+
+    <input type="submit">
+</form>
+{% endblock %}
