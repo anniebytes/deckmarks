@@ -78,8 +78,8 @@ if __name__ == "__main__":
     model.db.create_all()
 
     # Create Records
-    create_category_records()
-    create_deckmark_records()
     create_user_records()
+    create_category_records()
     create_group_records()
+    create_deckmark_records()
     create_tag_records()
