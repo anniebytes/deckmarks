@@ -26,7 +26,7 @@ def check_user_login():
     """Gets data from login form and checks for email/password in db"""
     email = request.form.get('email')
     password = request.form.get('password')
-    username = crud.check_user_login(email,password)
+    user = crud.check_user_login(email,password)
     if username is not False:
         session['user_logged_in'] = True
         flash(f'Welcome back {username}')

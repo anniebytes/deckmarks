@@ -11,7 +11,7 @@ def create_user_record(fname, lname, email, password):
 def check_user_login(email, password):
     user = model.User.query.filter(model.User.email == email).one()
     if user and user.password == password:
-        return user.fname
+        return user
     return False
 
 def create_deckmark_record(link, description, thumbnail):
