@@ -29,7 +29,7 @@ def check_user_login():
     user = crud.check_user_login(email,password)
     if user.id:
         session['user_id'] = user.id
-        flash(f'Welcome back {username}')
+        flash(f'Welcome back {user.fname}')
         return redirect('/')
     else:
         flash('Login unsuccessful', 'error')
