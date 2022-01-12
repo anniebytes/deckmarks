@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for deckmark in deckmarks %}
+    <p><b>DECKMARK</b></p>
+    <p>{{deckmark.link}}</p>
+    <p>{{deckmark.description}}</p>
+    <br><br>
+{% endfor %}
+
+{% endblock %}

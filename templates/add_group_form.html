@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/create_group" method="POST">
+    Name: 
+    <input type="text" name="name"> 
+    
+    Description:
+    <input type="textbox" name="description"> 
+    
+    Private:
+    <input type="checkbox" name="private">
+
+    <input type="submit">
+</form>
+{% endblock %}
