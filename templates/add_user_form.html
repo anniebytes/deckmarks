@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="/create_user" method="POST">
+    First name: 
+    <input type="text" name="fname"> 
+    
+    Last name:
+    <input type="text" name="lname"> 
+    
+    Email:
+    <input type="text" name="email">
+    
+    Password:
+    <input type="password" name="password">
+    <input type="submit">
+</form>
+{% endblock %}
