@@ -27,8 +27,8 @@ def check_user_login():
     email = request.form.get('email')
     password = request.form.get('password')
     user = crud.check_user_login(email,password)
-    if username is not False:
-        session['user_logged_in'] = True
+    if user.id:
+        session['user_id'] = user.id
         flash(f'Welcome back {username}')
         return redirect('/')
     else:
@@ -66,7 +66,7 @@ def view_group(id):
 
 @app.route('/add_group')
 def add_group_form():
-    if session.get('user_logged_in'): 
+    if session.get('user_id'): 
         return render_template('add_group_form.html')
     return redirect('/')
 
@@ -84,7 +84,7 @@ def create_group():
 # <----- Routes related to Deckmarks ----->
 @app.route('/add_deckmark')
 def add_deckmark_form():
-    if session.get('user_logged_in'): 
+    if session.get('user_id'): 
         return render_template('add_deckmark_form.html')
     flash('User must be logged in to access this page')
     return redirect('/')
