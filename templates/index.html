@@ -3,19 +3,7 @@
 {% block content %}
 
 
-{% if session['user_logged_in'] is not true %}
-
-    <a href="/login">Login</a>
-
-    <a href="/register">Register</a>
-
-{% endif %}
-
-<a href="/groups">Browse All Groups</a>
-
-<a href="/flash_test">Flash Test</a>
-
-{% if session['user_logged_in'] is true %}
+{% if session["user_id"] %}
 
     <p>User is logged in</p>
 
@@ -23,6 +11,19 @@
 
     <a href="/add_deckmark">Add Deckmark</a>
 
+{% else %}
+
+    <a href="/login">Login</a>
+
+    <a href="/register">Register</a>
+
+
 {% endif %}
+
+<p>session["user_id"]: {{ session["user_id"] }}</p>
+
+<a href="/groups">Browse All Groups</a>
+
+<a href="/flash_test">Flash Test</a>
 
 {% endblock %}
