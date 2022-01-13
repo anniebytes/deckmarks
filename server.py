@@ -61,7 +61,7 @@ def view_all_groups():
 @app.route('/group/<id>')
 def view_group(id):
     group = crud.get_deckmarks_by_group_id(id)
-    return render_template("group_details.html", deckmarks=group.deckmarks)
+    return render_template("group_details.html", group=group)
 
 
 @app.route('/add_group')

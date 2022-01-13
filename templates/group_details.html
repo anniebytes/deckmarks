@@ -1,12 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'add_deckmark_form.html' %}
 
-{% block content %}
+{% block above_form %}
 
-{% for deckmark in deckmarks %}
-    <p><b>DECKMARK</b></p>
-    <p>{{deckmark.link}}</p>
-    <p>{{deckmark.description}}</p>
-    <br><br>
-{% endfor %}
+    <p>Group Name: {{ group.name }}</p>
+    <p>Description: {{ group.description }}</p>
+
+    {% for deckmark in group.deckmarks %}
+        <p><b>DECKMARK</b></p>
+        <p>{{deckmark.link}}</p>
+        <p>{{deckmark.description}}</p>
+        <br><br>
+    {% endfor %}
+
+    <p>Add new deckmark to this group</p>
 
 {% endblock %}

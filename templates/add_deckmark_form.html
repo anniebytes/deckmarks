@@ -1,16 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="/create_deckmark" method="POST">
-    Link: 
-    <input type="text" name="link"> 
-    
-    Description:
-    <input type="textbox" name="description"> 
-    
-    Thumbnail:
-    <input type="text" name="thumbnail">
 
-    <input type="submit">
-</form>
+{% block above_form %}
+{% endblock %}
+
+{% block form_deckmark %}
+    <form action="/create_deckmark" method="POST">
+        {% if group %}
+            <p>group_id: {{group.id}}</p>
+            <input type="hidden" name="group_id" value={{group.id}}>
+        {% endif %}
+        
+        <label for="link">Link: </label>
+        <input type="text" name="link"> 
+        
+        <label for="description">Description: </label>
+        <input type="textbox" name="description"> 
+        
+        <label for="thumbnail">Thumbnail: </label>
+        <input type="text" name="thumbnail">
+
+        <input type="submit">
+    </form>
+{% endblock %}
+
+
+{% block below_form %}
+{% endblock %}
+
 {% endblock %}
