@@ -106,12 +106,13 @@ def create_deckmark():
     link = request.form.get('link')
     description = request.form.get('description')
     thumbnail = request.form.get('thumbnail')
-    if crud.create_deckmark_record(
+    deckmark = crud.create_deckmark_record(
                                 user_id=user_id,
                                 link=link,
                                 description=description,
-                                thumbnail=thumbnail):
-            flash('new record created', 'message')
+                                thumbnail=thumbnail)
+    if deckmark:
+        flash('new record created', 'message')
     else:
         flash('record creation failed', 'error')
     
