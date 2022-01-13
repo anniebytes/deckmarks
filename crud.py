@@ -41,9 +41,10 @@ def get_deckmarks_by_group_id(group_id):
 
 def add_deckmark_to_group(group_id, deckmark_id):
     """Creates association between group and deckmark"""
-    new_item = model.groupItem(group_id=group_id, deckmark_id=deckmark_id)
-    model.db.session.add(new_item)
+    group_item = model.groupItem(group_id=group_id, deckmark_id=deckmark_id)
+    model.db.session.add(group_item)
     model.db.session.commit()
+    return group_item
 
 def add_tag_to_deckmark(deckmark_id, tag_id):
     """Creates association between deckmark and tag"""

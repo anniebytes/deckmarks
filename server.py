@@ -114,8 +114,15 @@ def create_deckmark():
             flash('new record created', 'message')
     else:
         flash('record creation failed', 'error')
-    return redirect('/')
-
+    
+    # Create new group item
+    group_id = request.form.get('group_id')
+    if group_id and crud.add_deckmark_to_group(group_id, deckmark.id):
+        flash(f"new deckmark added to group_id: {group_id}")
+        return redirect(f"/group/{group_id}")
+    else:
+        flash('record creation failed', 'error')
+    return redirect("/groups")
 
 if __name__ == "__main__":
     app.run(debug=True)
