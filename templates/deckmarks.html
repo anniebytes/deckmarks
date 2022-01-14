@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% for deckmark in deckmarks %}
+    <p><a href="{{deckmark.link}}" target="new">{{deckmark.link}}</a></p>
+    {% endfor %}
+
+{% endblock %}

@@ -90,6 +90,11 @@ def create_group():
     return redirect('/')
 
 # <----- Routes related to Deckmarks ----->
+@app.route('/deckmarks')
+def view_all_deckmarks():
+    deckmarks = crud.get_all_deckmarks()
+    return render_template("deckmarks.html", deckmarks=deckmarks)
+
 @app.route('/add_deckmark')
 def add_deckmark_form():
     if session.get('user_id'): 

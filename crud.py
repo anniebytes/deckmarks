@@ -34,6 +34,10 @@ def get_all_groups():
     """Returns list of group objects"""
     return model.Group.query.all()
 
+def get_all_deckmarks():
+    """Returns list of deckmark objects"""
+    return model.Deckmark.query.all()
+
 def get_deckmarks_by_group_id(group_id):
     """Returns group object"""
     # add validation that only one group is returned
