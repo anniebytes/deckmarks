@@ -132,5 +132,17 @@ def create_deckmark():
         flash('record creation failed', 'error')
     return redirect("/groups")
 
+@app.route('/browse/slideshare/<tag>')
+def slideshare_api(tag):
+    response_text = ss_api.api_request(tag)
+    print(response_text)
+    if response_text == False:
+        print("No valid response from Slideshare API. Redirecting to /.")
+        return redirect('/')
+    else:
+        slideshow_list = parse_xml.slideshow_list(response_text)
+        groups = crud.get_all_groups()
+        return render_template('response.html', slideshow_list=slideshow_list, groups=groups)
+
 if __name__ == "__main__":
     app.run(debug=True)
