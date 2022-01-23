@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <p>Slideshare Results 2 </p>
+    <p id="loading">Loading Slideshare API results...</p>
+    {% for slideshow in slideshow_list %}
+    <div>
+        <h3>Slideshare Deck</h3>
+        <img id="ss-thumbnail-{{loop.index}}" src="{{slideshow['ThumbnailSmallURL']}}" /><a id="ss-url-{{loop.index}}" href="{{slideshow['URL']}}" target="new">{{slideshow["Title"]}}</a>
+        <p>Description: <span id="ss-description-{{loop.index}}">{{slideshow["Description"]}}</span></p>
+        <h6>Made by <b>{{slideshow["Username"]}}</b></h6>
+        <h6>Date created: {{slideshow["Created"]}}</h6>
+        <button class="add-deckmark "id="add-deckmark-{{loop.index}}">Add as deckmark</button>
+        <button>Add to deckmark group</button>
+
+        <label for="group-select">Add to group</label>
+        <select name="group" id="group-select-{{loop.index}}">
+            <option value="none">No group selected</option>
+            {% for group in groups %}
+            <option value="{{group.id}}">{{group.name}}</option>
+            {% endfor %}
+        </select>
+
+    </div>
+    {% endfor %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/addDeckmark.js"></script>
+{% endblock %}
