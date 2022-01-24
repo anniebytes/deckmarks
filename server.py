@@ -113,7 +113,7 @@ def create_deckmark():
         link = request.form.get('link')
         description = request.form.get('description')
         thumbnail = request.form.get('thumbnail')
-    if request.json.get('link'):
+    if request.json:
         link = request.json.get('link')
         description = request.json.get('description')
         thumbnail = request.json.get('thumbnail')
