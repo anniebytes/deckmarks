@@ -1,12 +1,3 @@
-function display_tags(deckmark_id){
-    fetch(`/deckmark/${deckmark_id}/tags`)
-        .then( response => response.json())
-        .then( responseData => {
-            const tags = responseData.tags; 
-            document.querySelector(`#tags-${deckmark_id}`).innerHTML = responseData.tags;
-        })
-}
-
 allAddButtons = document.querySelectorAll(".add-button");
 
 for (let i = 0; i < allAddButtons.length; i++) {
@@ -24,7 +15,6 @@ for (let i = 0; i < allAddButtons.length; i++) {
             .then( response => response.json())
             .then( responseData => {
                 const tagID = responseData.tag_id
-
                 const formInputs = {
                     deckmark_id: targetId,
                     tag_id: tagID
@@ -36,7 +26,8 @@ for (let i = 0; i < allAddButtons.length; i++) {
                     headers: {'Content-Type': 'application/json'},
                     })
                 .then( response => {
-                    display_tags(targetId);
+                    let tagHTML = document.querySelector(`${tagHTMLID}`).innerHTML;
+                    document.querySelector(`${tagHTMLID}`).innerHTML = tagHTML + ` ${newTag}`;
                     }
                 );
             });
