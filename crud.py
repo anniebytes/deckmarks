@@ -1,6 +1,4 @@
 """CRUD functions for updating the database"""
-from tokenize import Triple
-from flask import jsonify
 
 import model
 
@@ -71,6 +69,9 @@ def add_tag_to_deckmark(deckmark_id, tag_id):
     tag = model.Decktag(deckmark_id=deckmark_id, tag_id=tag_id)
     model.db.session.add(tag)
     model.db.session.commit()
+    if tag:
+        return True
+    return None
 
 if __name__ == "__main__":
     from server import app
