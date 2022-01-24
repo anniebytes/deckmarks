@@ -11,10 +11,7 @@
         <p>Description: <span id="ss-description-{{loop.index}}">{{slideshow["Description"]}}</span></p>
         <h6>Made by <b>{{slideshow["Username"]}}</b></h6>
         <h6>Date created: {{slideshow["Created"]}}</h6>
-        <button class="add-deckmark "id="add-deckmark-{{loop.index}}">Add as deckmark</button>
-        <button>Add to deckmark group</button>
 
-        <label for="group-select">Add to group</label>
         <select name="group" id="group-select-{{loop.index}}">
             <option value="none">No group selected</option>
             {% for group in groups %}
@@ -22,6 +19,7 @@
             {% endfor %}
         </select>
 
+        <button class="add-deckmark "id="add-deckmark-{{loop.index}}">Add as deckmark</button>
     </div>
     {% endfor %}
 
