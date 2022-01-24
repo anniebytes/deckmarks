@@ -14,7 +14,7 @@ for (let i = 0; i < allAddDeckmarkButtons.length; i++) {
             thumbnail: document.querySelector("#ss-thumbnail-" + targetId).src, 
         }
 
-        fetch('/create_deckmark_json', {
+        fetch('/create_deckmark_from_slideshare', {
             method: 'POST', 
             body: JSON.stringify(formInputs), 
             headers: {

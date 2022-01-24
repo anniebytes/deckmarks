@@ -153,6 +153,35 @@ def slideshare_api(tag):
         groups = crud.get_all_groups()
         return render_template('response.html', slideshow_list=slideshow_list, groups=groups)
 
+@app.route('/create_deckmark_from_slideshare', methods=['POST'])
+def create_deckmark_json():
+    user_id = session['user_id']
+    if not user_id:
+        flash('Must be a logged in user to create a group.')
+        return redirect('/add_deckmark')
+    if request.json.get('link'):
+        link = request.json.get('link')
+        description = request.json.get('description')
+        thumbnail = request.json.get('thumbnail')
+    deckmark = crud.create_deckmark_record(
+                                user_id=user_id,
+                                link=link,
+                                description=description,
+                                thumbnail=thumbnail)
+    if deckmark:
+        flash('new record created', 'message')
+    else:
+        flash('record creation failed', 'error')
+    
+    # Create new group item
+    group_id = request.json.get('group_id')
+    if group_id and crud.add_deckmark_to_group(group_id, deckmark.id):
+        flash(f"new deckmark added to group_id: {group_id}")
+        return redirect(f"/group/{group_id}")
+    else:
+        flash('record creation failed', 'error')
+    return {"success": True, "status": 'Deckmark created under user_id #{user_id}.'}
+
 @app.route('/api/add_tag_to_deckmark', methods=["POST"])
 def add_tag_to_deckmark():
     deckmark_id = request.json.get('deckmark_id')
