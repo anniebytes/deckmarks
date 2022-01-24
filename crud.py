@@ -50,11 +50,28 @@ def add_deckmark_to_group(group_id, deckmark_id):
     model.db.session.commit()
     return group_item
 
+def get_tags_by_deckmark_id(deckmark_id):
+    """Returns JSON string of tags"""
+    tags_list = model.Deckmark.query.filter(model.Deckmark.id == deckmark_id).one().tags
+    json_dict = { "tags" : "" }
+    for tag in tags_list:
+        json_dict["tags"] += tag.name
+    return json_dict
+
+def create_tag(name):
+    tag = model.Tag(name=name)
+    model.db.session.add(tag)
+    model.db.session.commit()
+    return tag.id
+
 def add_tag_to_deckmark(deckmark_id, tag_id):
     """Creates association between deckmark and tag"""
     tag = model.Decktag(deckmark_id=deckmark_id, tag_id=tag_id)
     model.db.session.add(tag)
     model.db.session.commit()
+    if tag:
+        return True
+    return None
 
 if __name__ == "__main__":
     from server import app
