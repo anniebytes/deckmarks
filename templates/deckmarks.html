@@ -3,7 +3,23 @@
 {% block content %}
 
     {% for deckmark in deckmarks %}
-    <p><a href="{{deckmark.link}}" target="new">{{deckmark.link}}</a></p>
+    <div>
+        <p id="deckmarkID-{{deckmark.id}}" hidden>{{deckmark.id}}</p>
+        <a href="{{deckmark.link}}" target="new">{{deckmark.link}}</a>
+        <h6>Tags:</h6>
+        <p id="tags-{{deckmark.id}}">
+            {% for tag in deckmark.tags %}
+                {{tag.name}} &nbsp
+            {% endfor %}
+        </p>
+        <label for="tag">Add Tag:</label>
+        <input id="tag-input-{{deckmark.id}}" type="text" name="tag">
+        <button id="add-button-{{deckmark.id}}" class="add-button">Add</button>
+    </div>
     {% endfor %}
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/addTag.js"></script>
 {% endblock %}
