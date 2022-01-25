@@ -59,11 +59,15 @@ def view_all_groups():
     groups = crud.get_all_groups()
     return render_template("groups.html", groups=groups)
 
-
 @app.route('/group/<id>')
 def view_group(id):
     group = crud.get_deckmarks_by_group_id(id)
     return render_template("group_details.html", group=group)
+
+@app.route('/group/<id>/edit')
+def edit_group_deckmarks(id):
+    group = crud.get_deckmarks_by_group_id(id)
+    return render_template("group_details_edit.html", group=group)
 
 @app.route('/add_group')
 def add_group_form():
@@ -89,6 +93,30 @@ def create_group():
     else:
         flash('record creation failed', 'error')
     return redirect('/')
+
+@app.route('/api/group_id', methods=["POST"])
+def get_group_id():
+    group_name = request.json.get('group_name')
+    group = crud.get_group_id(group_name)
+    if group:
+        return {"group_id": group.id}
+    else:
+        return {"status": "Failed to return a group from the server." }
+
+@app.route('/api/update_group_name', methods=["POST"])
+def update_group_name():
+    print(request.get_data())
+    print(request.get_json())
+    if request.json:
+        data = request.json.get('data')
+    else:
+        return {"status": "Invalid JSON request"}
+    group_name = data["group_name"]
+    new_group_name = data["new_group_name"]
+    if crud.update_group_name('none', group_name, new_group_name):
+        return {"status": "Group name update successful"}
+    else:
+        return {"status": "Failed to update group name"}
 
 # <----- Routes related to Deckmarks ----->
 @app.route('/deckmarks')
@@ -175,7 +203,7 @@ def create_deckmark_json():
     
     # Create new group item
     group_id = request.json.get('group_id')
-    if group_id and crud.add_deckmark_to_group(group_id, deckmark.id):
+    if group_id != 'none' and crud.add_deckmark_to_group(group_id, deckmark.id):
         flash(f"new deckmark added to group_id: {group_id}")
         return redirect(f"/group/{group_id}")
     else:
