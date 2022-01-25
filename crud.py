@@ -26,9 +26,22 @@ def create_group_record(user_id, name, description,private=False):
     model.db.session.commit()
     return True
 
+def update_group_name(id, name, new_name):
+    """Returns group object"""
+    print("NEW:" + new_name)
+    if id == 'none':
+        group = model.Group.query.filter(model.Group.name == name).first()
+    elif name == 'none':
+        group = model.Group.query.filter(model.Group.id == id).one()
+    group.name = new_name
+    print("group.name:" + group.name)
+    model.db.session.add(group)
+    model.db.session.commit()
+    return group
+
 def get_group_id(name):
     """Returns group object"""
-    return model.Group.query.filter(Group.name == name).one()
+    return model.Group.query.filter(model.Group.name == name).one()
 
 def get_all_groups():
     """Returns list of group objects"""

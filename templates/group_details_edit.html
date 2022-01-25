@@ -1,0 +1,29 @@
+{% extends 'group_details.html' %}
+
+{% block edit_mode %}
+{% endblock %}
+
+{% block group_name_edit %}
+    <button id="btn-group-name-edit-save" name="edit-save" value="edit">Edit</button>
+    <button id="btn-group-name-cancel" hidden=true>Cancel</button>
+{% endblock %}
+
+{% block group_description_edit %}
+    <button>Edit Description</button>
+{% endblock %}
+
+{% block deckmark_link_edit %}
+    <button>Edit Link</button>  
+{% endblock %}
+
+{% block deckmark_description_edit %}
+    <button>Edit Description</button>
+{% endblock %}
+
+{% block deckmark_remove %}
+    <button>Remove Deckmark</button>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/editDeckmarkGroup.js"></script>
+{% endblock %}

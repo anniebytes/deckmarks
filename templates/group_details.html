@@ -2,14 +2,33 @@
 
 {% block above_form %}
 
-    <p>Group Name: {{ group.name }}</p>
+    <p>Group Name: <span id="group-name">{{ group.name }}</span>
+        <span id="group-name-input" hidden></span>
+    {% block group_name_edit %}
+    {% endblock %}
+    </p>
+
     <p>Description: {{ group.description }}</p>
+    {% block group_description_edit %}
+    {% endblock %}
+
+    {% block edit_mode %}
+        <a href="/group/{{group.id}}/edit">Edit Mode</a>
+    {% endblock %}
 
     {% for deckmark in group.deckmarks %}
         <p><b>DECKMARK</b></p>
         <p>{{deckmark.link}}</p>
+        {% block deckmark_link_edit %}
+        {% endblock %}
         <p>{{deckmark.description}}</p>
-        <br><br>
+        {% block deckmark_description_edit %}
+        {% endblock %}
+        <br>
+        {% block deckmark_remove %}
+        {% endblock %}
+        <br>
+        <br>
     {% endfor %}
 
     <p>Add new deckmark to this group</p>
