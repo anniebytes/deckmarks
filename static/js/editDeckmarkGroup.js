@@ -4,7 +4,7 @@ const groupNameElem = document.querySelector("#group-name");
 const groupNameInputElemParent = document.querySelector("#group-name-input");
 const btnGroupNameEditSave = document.querySelector("#btn-group-name-edit-save");
 const btnGroupNameCancel = document.querySelector("#btn-group-name-cancel")
-const btnDeckmarkRemove = document.querySelector(".btn-deckmark-remove")
+const deckmarkRemoveButtons = document.querySelectorAll(".btn-deckmark-remove")
 
 function showInputField(textElem, inputElemParent, inputType, inputId){
     textElem.hidden = true;
@@ -92,7 +92,9 @@ btnGroupNameCancel.addEventListener('click', (evt) => {
     hideCancelButton(evt.target);
 })
 
-btnDeckmarkRemove.addEventListener('click', (evt) => {
+for (let i = 0; i < deckmarkRemoveButtons.length; i++) {
+    deckmarkRemoveButtons[i].addEventListener('click', (evt) => {
+    console.log("OK")
     // TODO: add confirmation alert
 
     const target = evt.target;
@@ -104,4 +106,5 @@ btnDeckmarkRemove.addEventListener('click', (evt) => {
 
     // TODO: remove deckmark HTML elements from page
 
-})
+    })
+}
