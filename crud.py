@@ -39,6 +39,18 @@ def update_group_name(id, name, new_name):
     model.db.session.commit()
     return group
 
+def get_group_item_id(group_id, deckmark_id):
+    group_item = model.groupItem.query.filter((model.groupItem.group_id == group_id) & (model.groupItem.deckmark_id == deckmark_id)).one()
+    if group_item:
+        return group_item.id 
+    return None
+
+def delete_group_item(group_item_id):
+    group_item = model.groupItem.query.filter(model.groupItem.id == group_item_id).one()
+    model.db.session.delete(group_item)
+    model.db.session.commit()
+    return {"status": f"group_item_id {group_item_id} has been deleted from the db."}
+
 def get_group_id(name):
     """Returns group object"""
     return model.Group.query.filter(model.Group.name == name).one()

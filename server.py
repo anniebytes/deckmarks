@@ -118,6 +118,15 @@ def update_group_name():
     else:
         return {"status": "Failed to update group name"}
 
+@app.route('/api/group/<group_id>/deckmarks/<deckmark_id>', methods=["DELETE"])
+def delete_group_item(group_id, deckmark_id):
+    group_item_id = crud.get_group_item_id(group_id, deckmark_id)
+    delete_status = crud.delete_group_item(group_item_id)
+    if group_item_id and delete_status:
+        return jsonify(delete_status)
+    else: 
+        return jsonify({"status": "DELETE failed"})
+
 # <----- Routes related to Deckmarks ----->
 @app.route('/deckmarks')
 def view_all_deckmarks():
