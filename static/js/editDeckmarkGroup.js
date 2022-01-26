@@ -4,6 +4,7 @@ const groupNameElem = document.querySelector("#group-name");
 const groupNameInputElemParent = document.querySelector("#group-name-input");
 const btnGroupNameEditSave = document.querySelector("#btn-group-name-edit-save");
 const btnGroupNameCancel = document.querySelector("#btn-group-name-cancel")
+const btnDeckmarkRemove = document.querySelector(".btn-deckmark-remove")
 
 function showInputField(textElem, inputElemParent, inputType, inputId){
     textElem.hidden = true;
@@ -52,6 +53,11 @@ function sendToServer(data, route){
     })
 }
 
+function deleteFromDB(route){
+    fetch(route, {method: 'DELETE'})
+    .then ( response => console.log(response))
+}
+
 function updateGroupNameDB(groupName, newName){
     const jsonData = {
         'group_name': groupName.innerText,
@@ -84,4 +90,18 @@ btnGroupNameCancel.addEventListener('click', (evt) => {
     showOriginalElem(groupNameElem, groupNameInputElemParent);
     changeToEditButton(btnGroupNameEditSave);
     hideCancelButton(evt.target);
+})
+
+btnDeckmarkRemove.addEventListener('click', (evt) => {
+    // TODO: add confirmation alert
+
+    const target = evt.target;
+    const edit_id = target.parentElement.id.split('-')[2];
+    const deckmark_id = document.querySelector(`#deckmark-id-${edit_id}`).innerText;
+    const group_id = document.querySelector("#group-id").innerText;
+    const api_delete_group_item_route = `/api/group/${group_id}/deckmarks/${deckmark_id}`;
+    deleteFromDB(api_delete_group_item_route)
+
+    // TODO: remove deckmark HTML elements from page
+
 })
