@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 {% if session["user_id"] %}
 
     <h3>Welcome User {{ session["user_id"]}} </h3>
@@ -24,19 +23,12 @@
 
 {% endif %}
 
-
-<div>
-    <a href="/deckmarks">Browse All Deckmarks</a>
-    <br>
-    <a href="/groups">Browse All Groups</a>
-    <br><br>
-</div>
-
-<div>
-    <a href="/browse/slideshare/technology">Browse Slideshares By Technology</a>
-    <br><br>
-</div>
-
 <a href="/flash_test">Flash Test</a>
+<br><br>
 
+<div id="root"></div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/jsx" src="/static/jsx/index.jsx"></script>
 {% endblock %}
