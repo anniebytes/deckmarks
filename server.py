@@ -1,9 +1,13 @@
 from flask import Flask, request, session, flash, redirect, jsonify
 from flask.templating import render_template
+
 import crud
 import model
 import ss_api
 import parse_xml
+import ext_support
+
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 app.secret_key = 'DEV'
