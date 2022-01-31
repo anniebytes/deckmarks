@@ -152,8 +152,12 @@ def create_deckmark():
         return redirect('/add_deckmark')
     if request.form.get('link'):
         link = request.form.get('link')
-        description = request.form.get('description')
+        domain = urlparse(link).netloc
+        description = request.form.get('description')            
         thumbnail = request.form.get('thumbnail')
+        if not thumbnail and domain == 'speakerdeck.com':
+            thumbnail = ext_support.get_speakerdeck_thumbnail(link)
+
     if request.json:
         link = request.json.get('link')
         description = request.json.get('description')
