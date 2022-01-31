@@ -1,9 +1,13 @@
 from flask import Flask, request, session, flash, redirect, jsonify
 from flask.templating import render_template
+
 import crud
 import model
 import ss_api
 import parse_xml
+import ext_support
+
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 app.secret_key = 'DEV'
@@ -148,8 +152,12 @@ def create_deckmark():
         return redirect('/add_deckmark')
     if request.form.get('link'):
         link = request.form.get('link')
-        description = request.form.get('description')
+        domain = urlparse(link).netloc
+        description = request.form.get('description')            
         thumbnail = request.form.get('thumbnail')
+        if not thumbnail and domain == 'speakerdeck.com':
+            thumbnail = ext_support.get_speakerdeck_thumbnail(link)
+
     if request.json:
         link = request.json.get('link')
         description = request.json.get('description')
@@ -166,9 +174,12 @@ def create_deckmark():
     
     # Create new group item
     group_id = request.form.get('group_id')
-    if group_id and crud.add_deckmark_to_group(group_id, deckmark.id):
-        flash(f"new deckmark added to group_id: {group_id}")
-        return redirect(f"/group/{group_id}")
+    if group_id:
+        crud.add_deckmark_to_group(group_id, deckmark.id)
+        group_name = crud.get_group_name_by_id(group_id)
+        notification_message = f"new deckmark added to {group_name}"
+        flash(notification_message)
+        return redirect(f"/group/{group_id}/edit")
     else:
         flash('record creation failed', 'error')
     return redirect("/groups")
