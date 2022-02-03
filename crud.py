@@ -12,7 +12,7 @@ def check_user_login(email, password):
     user = model.User.query.filter(model.User.email == email).one()
     if user and user.password == password:
         return user
-    return False
+    return None
 
 def create_deckmark_record(user_id, link, description, thumbnail):
     deckmark = model.Deckmark(user_id=user_id, link=link, description=description, thumbnail=thumbnail)

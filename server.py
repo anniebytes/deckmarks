@@ -33,7 +33,7 @@ def check_user_login():
     email = request.form.get('email')
     password = request.form.get('password')
     user = crud.check_user_login(email,password)
-    if user.id:
+    if user:
         session['user_id'] = user.id
         flash(f'Welcome back {user.fname}')
         return redirect('/')
