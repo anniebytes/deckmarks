@@ -44,7 +44,7 @@ const TextInput = (props) => {
 // function Cancel(){
 // }
 
-function AddDeckmarkForm(){
+const AddDeckmarkForm = () => {
     return (
         <div>
             <form action="/create_deckmark" method="POST">
