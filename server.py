@@ -248,5 +248,20 @@ def create_tag():
     else:
         return {"success": False}
 
+@app.route('/api/deckmarks/all')
+def api_get_all_deckmarks():
+    deckmarks = crud.get_all_deckmarks()
+    deckmarks_json = []
+    for deckmark in deckmarks:
+        deckmark_json = {}
+        # json_key = f"deckmark_id_{deckmark.id}"
+        deckmark_json['id'] = deckmark.id
+        deckmark_json['link'] = deckmark.link
+        deckmark_json['description'] = deckmark.description
+        deckmark_json['thumbnail'] = deckmark.thumbnail
+        deckmark_json['user_id'] = deckmark.user_id
+        deckmarks_json.append(deckmark_json)
+    return jsonify(deckmarks_json)
+
 if __name__ == "__main__":
     app.run(debug=True)
