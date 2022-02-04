@@ -263,5 +263,19 @@ def api_get_all_deckmarks():
         deckmarks_json.append(deckmark_json)
     return jsonify(deckmarks_json)
 
+@app.route('/api/user/<id>/deckmarks')
+def api_get_user_deckmarks(id):
+    deckmarks = crud.get_deckmarks_by_user(id)
+    deckmarks_json = []
+    for deckmark in deckmarks:
+        deckmark_json = {}
+        deckmark_json['id'] = deckmark.id
+        deckmark_json['link'] = deckmark.link
+        deckmark_json['description'] = deckmark.description
+        deckmark_json['thumbnail'] = deckmark.thumbnail
+        deckmark_json['user_id'] = deckmark.user_id
+        deckmarks_json.append(deckmark_json)
+    return jsonify(deckmarks_json)
+
 if __name__ == "__main__":
     app.run(debug=True)

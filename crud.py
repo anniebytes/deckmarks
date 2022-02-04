@@ -68,6 +68,9 @@ def get_deckmarks_by_group_id(group_id):
     # add validation that only one group is returned
     return model.Group.query.filter(model.Group.id == group_id).one()
 
+def get_deckmarks_by_user(user_id):
+    return model.Deckmark.query.filter(model.Deckmark.user_id == user_id).all()
+
 def add_deckmark_to_group(group_id, deckmark_id):
     """Creates association between group and deckmark"""
     group_item = model.groupItem(group_id=group_id, deckmark_id=deckmark_id)
