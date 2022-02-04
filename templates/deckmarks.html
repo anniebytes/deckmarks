@@ -1,26 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    {% for deckmark in deckmarks %}
-    <div>
-        <h3>Deckmark {{ deckmark.id }}</h3>
-        <p id="deckmarkID-{{deckmark.id}}" hidden>{{deckmark.id}}</p>
-        <a href="{{deckmark.link}}" target="new">{{deckmark.link}}</a>
-        <h6>Tags:</h6>
-        <p id="tags-{{deckmark.id}}">
-            {% for tag in deckmark.tags %}
-                {{tag.name}} &nbsp;
-            {% endfor %}
-        </p>
-        <label for="tag">Add Tag:</label>
-        <input id="tag-input-{{deckmark.id}}" type="text" name="tag">
-        <button id="add-button-{{deckmark.id}}" class="add-button">Add</button>
-    </div>
-    {% endfor %}
-
+    <div id="view-all-deckmarks"></div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="/static/js/addTag.js"></script>
+    <script type="text/jsx" src="/static/jsx/deckmarks.jsx"></script>
 {% endblock %}
