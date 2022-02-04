@@ -134,8 +134,11 @@ def delete_group_item(group_id, deckmark_id):
 # <----- Routes related to Deckmarks ----->
 @app.route('/deckmarks')
 def view_all_deckmarks():
-    deckmarks = crud.get_all_deckmarks()
-    return render_template("deckmarks.html", deckmarks=deckmarks)
+    return render_template("deckmarks.html")
+
+@app.route('/deckmarks/user/<user_id>')
+def view_user_deckmarks(user_id):
+    return render_template("user_deckmarks.html", user_id=user_id)
 
 @app.route('/add_deckmark')
 def add_deckmark_form():
