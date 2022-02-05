@@ -29,6 +29,54 @@ const Description = (props) => {
     )
 }
 
+const Tag = (props) => {
+    return (
+        <button>{props.tag_name}</button>
+    )
+}
+
+
+const Tags = (props) => {
+    const [tags, setTags] = React.useState([]);
+    const apiEndpoint = `/api/deckmark/${props.deckmark_id}/tags`
+    React.useEffect(() => {
+      fetch(apiEndpoint)
+        .then(response => response.json())
+        .then(result => {
+            if (Object.keys(result).length > 0 ) {
+                setTags(result);
+            }
+        });
+    }, []);
+
+    let tagsArray = []
+    if (Object.keys(tags).length > 0) {
+        tagsArray = Object.entries(tags)
+    }
+    
+    const tagItems = tagsArray.map((tag) => {
+        return <Tag tag_id={tag[0]} tag_name={tag[1]}/>
+    });
+
+    return (
+        <div>
+            {tagItems}
+        </div>
+    )
+}
+
+const AddTags = (props) => {
+    console.log("add " + props.deckmark_id)
+
+    return (
+        <form action="/api/add_tag_to_deckmark" method="POST">
+            <TextInput name="tag_name" title="Add Tag" inputType="text"/>
+            <input type="hidden" name="deckmark_id" value={props.deckmark_id}/>
+            <input type="submit" value="Add" />
+        </form>
+    )
+
+}
 
 const UserInfo = (props) => {
 
@@ -58,6 +106,7 @@ const TextInput = (props) => {
 
 
 const Deckmark = (props) => {
+    console.log(props.deckmark_id)
 
     const [mode, setMode] = React.useState(mode);
 
@@ -73,7 +122,8 @@ const Deckmark = (props) => {
 
   const deckmarkComponents = [<Thumbnail image={props.image} key="thumbnail"/>, 
         <Link link={props.link} title={props.link} key="link"/>, 
-        <Description description={props.description} key="description"/>, 
+        <Description description={props.description} key="description"/>,
+        <Tags deckmark_id={props.deckmark_id} key="tags"/>,
         <UserInfo id={props.user_id} key="userinfo"/>, 
         <button type="button" onClick={editButtonClicked} key="edit">Edit</button>
     ]
@@ -89,6 +139,8 @@ const Deckmark = (props) => {
                 <input type="submit" value="Save" />
                 <button type="button" onClick={cancelButtonClicked} key="cancel">Cancel</button>
                 </form>
+                <Tags deckmark_id={props.deckmark_id} key="tags"/>
+                <AddTags deckmark_id={props.deckmark_id}/>
             </div>
         )
     }
@@ -122,6 +174,7 @@ const UserDeckmarks = (props) => {
         return (
             <div key={deckmark.id}>
                 <Deckmark 
+                    deckmark_id={deckmark.id}
                     image={deckmark.thumbnail}
                     link={deckmark.link}
                     description={deckmark.description}
