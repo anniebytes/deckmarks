@@ -243,8 +243,18 @@ def create_deckmark_json():
 
 @app.route('/api/add_tag_to_deckmark', methods=["POST"])
 def add_tag_to_deckmark():
-    deckmark_id = request.json.get('deckmark_id')
-    tag_id = request.json.get('tag_id')
+    if request.json:
+        deckmark_id = request.json.get('deckmark_id')
+        tag_id = request.json.get('tag_id')
+        tag_name = request.json.get('tag_name')
+    if request.form:
+        deckmark_id = request.form.get('deckmark_id')
+        tag_id = request.form.get('tag_id')
+        tag_name = request.form.get('tag_name')
+    if not tag_id:
+        tag_id = crud.get_tag_id_by_name(tag_name)
+        if tag_id == False: 
+            tag_id = crud.create_tag(tag_name)
     if crud.add_tag_to_deckmark(deckmark_id, tag_id):
         return {"success": True}
     else:
