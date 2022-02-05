@@ -2,7 +2,7 @@ const Thumbnail = (props) => {
 
     return (
         <div>
-            <img src="{props.image}"></img>
+            <img src={props.image}></img>
         </div>
     )
 }
@@ -12,14 +12,14 @@ const Link = (props) => {
 
     return (
         <div>
-            <a href="{props.link}">{props.title}</a>
+            <a href={props.link}>{props.title}</a>
         </div>
     )
 }
 
 
 const Description = (props) => {
-
+    
     return (
         <div>
             <p>
