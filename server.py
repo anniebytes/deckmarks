@@ -92,7 +92,7 @@ def create_group():
                                 user_id=user_id,
                                 name=name,
                                 description=description,
-                                private=private):
+                                private=bool(private)):
             flash('new record created', 'message')
     else:
         flash('record creation failed', 'error')
