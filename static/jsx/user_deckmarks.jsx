@@ -59,14 +59,46 @@ const TextInput = (props) => {
 
 const Deckmark = (props) => {
 
+    const [mode, setMode] = React.useState(mode);
+
+    function editButtonClicked(e) {
+        e.target.setAttribute("hidden", true);
+        setMode("edit")
+    }
+
+    function cancelButtonClicked(e) {
+        e.target.setAttribute("hidden", true);
+        setMode("view")
+    }
+
+  const deckmarkComponents = [<Thumbnail image={props.image} key="thumbnail"/>, 
+        <Link link={props.link} title={props.link} key="link"/>, 
+        <Description description={props.description} key="description"/>, 
+        <UserInfo id={props.user_id} key="userinfo"/>, 
+        <button type="button" onClick={editButtonClicked} key="edit">Edit</button>
+    ]
+
+    if (mode == "edit") {
+        return (
+            <div>
+                <form action="/create_deckmark" method="POST">
+                <Thumbnail image={props.image} key="thumbnail"/>
+                <TextInput name="link" title="Link" inputType="text" initValue={props.link}/>
+                <TextInput name="description" title="Description" inputType="text" initValue={props.description}/>
+                <UserInfo id={props.user_id} key="userinfo"/>
+                <input type="submit" value="Save" />
+                <button type="button" onClick={cancelButtonClicked} key="cancel">Cancel</button>
+                </form>
+            </div>
+        )
+    }
+
     return (
         <div>
-            <Thumbnail image={props.image}/>
-            <Link link={props.link} title={props.link}/>
-            <Description description={props.description}/>
-            <UserInfo id={props.user_id}/>
+            {deckmarkComponents} 
         </div>
     )
+
 }
 
 
