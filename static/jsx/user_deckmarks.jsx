@@ -40,6 +40,23 @@ const UserInfo = (props) => {
 }
 
 
+const TextInput = (props) => {
+    const [input, setInput] = React.useState(props.initValue);
+    return (
+        <div>
+            <label>
+                {props.title}:
+                <input type="{props.inputType}"
+                    name={props.name}
+                    value={input}
+                    onChange={e => setInput(e.target.value)}
+                />
+            </label>
+        </div>
+    )
+}
+
+
 const Deckmark = (props) => {
 
     return (
