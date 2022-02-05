@@ -105,8 +105,9 @@ const Deckmark = (props) => {
 const UserDeckmarks = (props) => {
     console.log(props.user_id)
     const [deckmarks, setDeckmarks] = React.useState([]);
+    const apiEndpoint = `/api/user/${props.user_id}/deckmarks`
     React.useEffect(() => {
-      fetch(`/api/user/${props.user_id}/deckmarks`)
+      fetch(apiEndpoint)
         .then(response => response.json())
         .then(result => {
           setDeckmarks(result);
@@ -137,6 +138,7 @@ const UserDeckmarks = (props) => {
     )
 
 }
+
 
 const user_div = document.querySelector('.user')
 const user_id = user_div.id.split('-')[1]
