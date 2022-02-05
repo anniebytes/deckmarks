@@ -106,8 +106,7 @@ const TextInput = (props) => {
 
 
 const Deckmark = (props) => {
-    console.log(props.deckmark_id)
-
+    
     const [mode, setMode] = React.useState(mode);
 
     function editButtonClicked(e) {
