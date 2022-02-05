@@ -187,9 +187,12 @@ def create_deckmark():
         flash('record creation failed', 'error')
     return redirect("/groups")
 
-@app.route('/deckmark/<id>/tags')
+@app.route('/api/deckmark/<id>/tags')
 def view_deckmark_tags(id):
-    json_dict = crud.get_tags_by_deckmark_id(id)
+    tags = crud.get_tags_by_deckmark_id(id)
+    json_dict = {}
+    for tag in tags:
+        json_dict[tag.id] = tag.name
     return jsonify(json_dict)
 
 @app.route('/browse/slideshare/<tag>')
