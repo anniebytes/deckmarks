@@ -195,6 +195,11 @@ def view_deckmark_tags(id):
         json_dict[tag.id] = tag.name
     return jsonify(json_dict)
 
+@app.route('/deckmarks/tag/<tag_name>')
+def view_deckmarks_by_tag(tag_name):
+    # WIP: tags = crud.get_deckmarks_by_tag(tag_name)
+    return ""
+
 @app.route('/browse/slideshare/<tag>')
 def slideshare_api(tag):
     response_text = ss_api.api_request(tag)
